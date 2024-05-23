@@ -2,11 +2,12 @@
 
 import axios from "axios";
 import * as z from "zod";
-import { Code } from "lucide-react";
+import { Code, Divide } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
+import ReactMarkdown from 'react-markdown';
 
 
 import { Heading } from "@/components/heading";
@@ -124,9 +125,21 @@ const CodePage = () => {
                     message.role === "user" ? "bg-white border border-black/10" : "bg-muted")}
                      >
                       {message.role === "user" ? <UserAvatar/>  : <BotAvatar/>}
-                      <p className="text-sm">
-                      {message.content}
-                      </p>
+                   <ReactMarkdown 
+                      components={{
+                        pre: ({ node, ...props}) => (
+                          <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                            <pre {...props} />
+                          </div>
+                        ),
+                        code: ({ node, ...props }) => (
+                          <code className="bg-black/10 rounded-lg p-1" {...props}/>
+                        )
+                      }}
+                      className="text-sm overflow leading-7"
+                   >
+                       {message.content || ""} 
+                   </ReactMarkdown>
                     </div>
                   ))}
                   </div>      
