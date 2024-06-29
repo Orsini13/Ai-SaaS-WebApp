@@ -10,7 +10,7 @@ const openai = new OpenAIApi(configuration);
 
 const instructionMessage : ChatCompletionRequestMessage = {
     role: "system",
-    content: "You are a code generator, you must answer only in markdown snippets. Use code comments for better explanation"
+    content: "You are a code generator, you must answer only in markdown code snippets. Use code comments for better explanation"
 }
 
 export async function POST(
